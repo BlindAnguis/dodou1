@@ -1,0 +1,1 @@
+/usr/bin/cc  -pthread -g   CMakeFiles/Node.dir/main.c.o CMakeFiles/Node.dir/TcpServer.c.o CMakeFiles/Node.dir/TcpClient.c.o CMakeFiles/Node.dir/global.c.o  -o Node 
