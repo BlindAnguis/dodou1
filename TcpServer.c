@@ -50,13 +50,18 @@ void serverMain(ServerArgs serverArgs) {
     int socket = setupServerSocket(serverArgs.port);
 
     if (socket != -1) {
-        char buffer[MESSAGE_SIZE] = { 0 };
-        ssize_t valread = read(socket, buffer, MESSAGE_SIZE);
-        printf("Received: %s\n", buffer);
-        Message message;
-        message = readMessage(buffer);
-        printf("%s", messageTypeToString(message.messageType));
-        printf("%s", message.content);
+
+        for (int i = 0; i < 100; i++) {
+            char buffer[MESSAGE_SIZE] = {0};
+            ssize_t valread = read(socket, buffer, MESSAGE_SIZE);
+            printf("Received: %s\n", buffer);
+            Message message;
+            message = readMessage(buffer);
+
+            while (!postMessage(message)) {
+                printf("Cant post message, waiting...\n");
+            }
+        }
     }
 
     close(socket);

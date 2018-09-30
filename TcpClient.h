@@ -12,7 +12,11 @@
 
 #include "global.h"
 
+int sock;
+
 int setupClientSocket(char* ip, uint16_t port);
+
+void sendMessage(Message message);
 
 void* clientMain(void* clientArgs);
 

@@ -6,12 +6,28 @@
 
 #IncludeRegexTransform: 
 
-/home/tobias/CLionProjects/Node/global.c
-stdlib.h
+/home/tobias/CLionProjects/Node/TcpClient.c
+malloc.h
 -
+TcpClient.h
+/home/tobias/CLionProjects/Node/TcpClient.h
+
+/home/tobias/CLionProjects/Node/TcpClient.h
 printf.h
 -
+unistd.h
+-
 stdio.h
+-
+memory.h
+-
+pthread.h
+-
+netinet/in.h
+-
+arpa/inet.h
+-
+sys/socket.h
 -
 global.h
 /home/tobias/CLionProjects/Node/global.h
@@ -20,5 +36,15 @@ global.h
 stdint.h
 -
 string.h
+-
+stdlib.h
+-
+printf.h
+-
+stdio.h
+-
+semaphore.h
+-
+stdbool.h
 -
 

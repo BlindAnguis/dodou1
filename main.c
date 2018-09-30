@@ -34,6 +34,8 @@ int main(int argc, char* argv[]) {
         printf("ERROR: could not convert %s to integer", nextPortString);
     }
 
+    init();
+
     ClientArgs clientArgs;
 
     pthread_t clientThread;
@@ -48,6 +50,8 @@ int main(int argc, char* argv[]) {
     serverMain(serverArgs);
 
     pthread_join(clientThread, NULL);
+
+    unInit();
 
     return 0;
 }

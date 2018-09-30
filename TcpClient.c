@@ -2,7 +2,7 @@
 #include "TcpClient.h"
 
 int setupClientSocket(char* ip, uint16_t port) {
-    int sock = 0;
+    sock = 0;
     struct sockaddr_in serv_addr;
 
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
@@ -29,18 +29,34 @@ int setupClientSocket(char* ip, uint16_t port) {
     return sock;
 }
 
+void sendMessage(Message message) {
+    if (sock != -1) {
+        char* messageData = calloc(MESSAGE_SIZE, sizeof(char));
+        createMessage(message.messageType, message.content, messageData);
+        printf("Sending message: %s", messageData);
+        send(sock, messageData, MESSAGE_SIZE, 0);
+        free(messageData);
+    }
+}
+
 void* clientMain(void* clientArgs) {
     ClientArgs args = * (ClientArgs*) clientArgs;
-    int socket = setupClientSocket(args.ip, args.port);
+    setupClientSocket(args.ip, args.port);
 
-    if (socket != -1) {
+    if (sock != -1) {
         char* message = calloc(MESSAGE_SIZE, sizeof(char));
         createMessage(ELECTION, args.message, message);
         printf("Sending message: %s", message);
-        send(socket, message, MESSAGE_SIZE, 0);
+        send(sock, message, MESSAGE_SIZE, 0);
         free(message);
+
+        for (int i = 0; i < 100; i++) {
+            Message messageToSend = getMessage();
+
+            sendMessage(messageToSend);
+        }
     }
 
-    close(socket);
+    close(sock);
     pthread_exit(NULL);
 }

@@ -1,6 +1,4 @@
-#include <stdlib.h>
-#include <printf.h>
-#include <stdio.h>
+#include <unistd.h>
 #include "global.h"
 
 void createMessage(MessageType messageType, char* content, char* message) {
@@ -15,12 +13,12 @@ Message readMessage(char* message) {
         index++;
     }
 
-    char* mts = calloc(index, sizeof(char));
+    char* mts = calloc(index + 1, sizeof(char));
     strncpy(mts, message, index);
     mess.messageType = messageStringToType(mts);
     free(mts);
 
-    mess.content = calloc(sizeof(message) - index + 1, sizeof(char));
+    mess.content = calloc(strlen(message) - index + 1, sizeof(char));
     strncpy(mess.content, message + index + 1, strlen(message) - index);
 
     return mess;
@@ -50,4 +48,45 @@ MessageType messageStringToType(char* messageType) {
     }
     printf("ERROR! MessageType (%s) not handled\n", messageType);
     return MESSAGE;
+}
+
+bool postMessage(Message message) {
+    bool retValue = false;
+    sem_wait(&mutex);
+    if (!messagePosted) {
+        postedMessage = message;
+        messagePosted = true;
+        retValue = true;
+    }
+    sem_post(&mutex);
+    return retValue;
+}
+
+Message getMessage() {
+    bool foundMessage = false;
+    Message message;
+
+    while (!foundMessage) {
+        sem_wait(&mutex);
+
+        if (messagePosted) {
+            message = postedMessage;
+            messagePosted = false;
+            foundMessage = true;
+        } else {
+            // Wait for message
+        }
+
+        sem_post(&mutex);
+    }
+    return message;
+}
+
+void init() {
+    messagePosted = false;
+    sem_init(&mutex, 0, 1);
+}
+
+void unInit() {
+    sem_destroy(&mutex);
 }
