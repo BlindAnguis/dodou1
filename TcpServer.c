@@ -58,6 +58,21 @@ void serverMain(ServerArgs serverArgs) {
             Message message;
             message = readMessage(buffer);
 
+            switch (message.messageType) {
+                case ELECTION:
+                    // Only forward if greater
+                    break;
+                case ELECTION_OVER:
+                    // Tell next person about the winner
+                    break;
+                case MESSAGE:
+                    // Just forward this
+                    break;
+                default:
+                    // ERROR trace please
+                    break;
+            }
+
             while (!postMessage(message)) {
                 printf("Cant post message, waiting...\n");
             }

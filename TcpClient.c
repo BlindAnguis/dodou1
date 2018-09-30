@@ -43,19 +43,17 @@ void* clientMain(void* clientArgs) {
     ClientArgs args = * (ClientArgs*) clientArgs;
     setupClientSocket(args.ip, args.port);
 
-    if (sock != -1) {
-        char* message = calloc(MESSAGE_SIZE, sizeof(char));
-        createMessage(ELECTION, args.message, message);
-        printf("Sending message: %s", message);
-        send(sock, message, MESSAGE_SIZE, 0);
-        free(message);
+    Message message;
+    message.messageType = ELECTION;
+    message.content = args.message;
+    sendMessage(message);
 
-        for (int i = 0; i < 100; i++) {
-            Message messageToSend = getMessage();
-
-            sendMessage(messageToSend);
-        }
+    for (int i = 0; i < 100; i++) {
+        Message messageToSend = getMessage();
+        sendMessage(messageToSend);
+        free(messageToSend.content);
     }
+
 
     close(sock);
     pthread_exit(NULL);
