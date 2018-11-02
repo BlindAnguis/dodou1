@@ -105,6 +105,10 @@ char *buildID(char *port) {
   char fqdn[256];
   int res = getFQDN(fqdn, 256);
 
+  if (res == 1 || res == 2) {
+    // Something went wrong
+  }
+
   char *ID = calloc(strlen(fqdn) + strlen(port) + 3, sizeof(char));
   strcpy(ID, fqdn);
   strcat(ID, ",");
