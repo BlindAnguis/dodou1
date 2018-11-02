@@ -157,7 +157,7 @@ void fillInAddrInfo(struct addrinfo **addrInfo, const int port, const char *IPAd
   sprintf(portId, "%d", port);
   struct addrinfo info;
   memset(&info, 0, sizeof(info));
-  info.ai_family = AF_UNSPEC;
+  info.ai_family = AF_INET;
   info.ai_socktype = sockType;
   info.ai_protocol = 0;
   info.ai_flags = flags;
