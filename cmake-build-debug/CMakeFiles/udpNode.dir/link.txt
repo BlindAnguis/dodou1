@@ -1,0 +1,1 @@
+/usr/bin/cc  -pthread -g   CMakeFiles/udpNode.dir/UDP/main.c.o CMakeFiles/udpNode.dir/Common/global.c.o CMakeFiles/udpNode.dir/Common/common.c.o CMakeFiles/udpNode.dir/UDP/UdpClient.c.o CMakeFiles/udpNode.dir/UDP/UdpServer.c.o  -o udpNode 

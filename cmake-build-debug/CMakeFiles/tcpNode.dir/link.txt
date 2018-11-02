@@ -1,1 +1,1 @@
-/usr/bin/cc   -pthread -g   CMakeFiles/tcpNode.dir/TCP/main.c.o CMakeFiles/tcpNode.dir/TCP/TcpServer.c.o CMakeFiles/tcpNode.dir/TCP/TcpClient.c.o CMakeFiles/tcpNode.dir/Common/global.c.o CMakeFiles/tcpNode.dir/Common/common.c.o  -o tcpNode 
+/usr/bin/cc  -pthread -g   CMakeFiles/tcpNode.dir/TCP/main.c.o CMakeFiles/tcpNode.dir/TCP/TcpServer.c.o CMakeFiles/tcpNode.dir/TCP/TcpClient.c.o CMakeFiles/tcpNode.dir/Common/global.c.o CMakeFiles/tcpNode.dir/Common/common.c.o  -o tcpNode 
