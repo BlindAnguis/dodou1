@@ -6,10 +6,12 @@
 #include <stdlib.h>
 #include <netinet/in.h>
 #include <unistd.h>
+#include <netdb.h>
+#include <sys/time.h>
+#include <errno.h>
 
-#include "global.h"
-
-int setupServerSocket(uint16_t port);
+#include "../Common/common.h"
+#include "../Common/global.h"
 
 void serverMain(ServerArgs serverArgs);
 
